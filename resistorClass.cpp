@@ -12,6 +12,8 @@ class Resistor
       float series(Resistor& R2);
       float parallel(Resistor& R2);
       float current(float volt);
+      float operator +(Resistor& R1);
+      float operator *(Resistor& R1);
 };
 
 Resistor::Resistor(float val): res_value(val)
@@ -42,13 +44,13 @@ float Resistor::current(float volt)
        return current;
     }
 
-float Resistor operator +(Resistor& R1)
+float Resistor:: operator +(Resistor& R1)
     {
         float s=this->res_value+R1.res_value;
         return s;
     }
 
-float Resistor operator *(Resistor& R1)
+float Resistor:: operator *(Resistor& R1)
     {
         float s=this->res_value+R1.res_value;
         return (1/s);
@@ -83,16 +85,16 @@ int main()
      */
 
     /*Using + and * operators functions*/
-    float s1=r3.series(r4);
-    float s2=r5.series(r6);
+    float s1=r3+r4;
+    float s2=r5+r6;
 
     Resistor S1(s1);
     Resistor S2(s2);
-    float r_total_1 = S1.parallel(S2);
+    float r_total_1 = S1*S2;
     Resistor R_total_1(r_total_1);
-    float r_total_2 = r1.series(R_total_1);
+    float r_total_2 = r1+R_total_1;
     Resistor R_total_2(r_total_2);
-    float r_total= r2.series(R_total_2);
+    float r_total= r2+R_total_2;
      Resistor R_total(r_total);
      float curr= R_total.current(120);
      cout<<curr;
